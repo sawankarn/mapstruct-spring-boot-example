@@ -1,6 +1,8 @@
 package com.youtube.java.puzzle.service;
 
 import com.youtube.java.puzzle.dto.EmployeeDTO;
+import com.youtube.java.puzzle.dto.EmployeeDetailsDTO;
+import com.youtube.java.puzzle.mapper.EmployeeDetailsMapper;
 import com.youtube.java.puzzle.mapper.EmployeeMapper;
 import com.youtube.java.puzzle.model.Employee;
 import com.youtube.java.puzzle.repository.EmployeeRepository;
@@ -15,6 +17,9 @@ public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
 
+    @Autowired
+    EmployeeDetailsMapper employeeDetailsMapper;
+
     public Employee saveEmployee(EmployeeDTO employeeDTO) {
         return employeeRepository.save(employeeMapper.toEntity(employeeDTO));
     }
@@ -24,4 +29,12 @@ public class EmployeeService {
                 .map(employeeMapper::toDTO )
                 .orElse(new EmployeeDTO());
     }
+
+    public EmployeeDetailsDTO getEmployeeDetailsById(Long id){
+        return employeeRepository.findById(id)
+                .map(employee -> {
+                   return employeeDetailsMapper.toEmployeeDetailsDTO(employee, employee.getDepartment());
+                }).orElse(new EmployeeDetailsDTO());
+    }
+
 }

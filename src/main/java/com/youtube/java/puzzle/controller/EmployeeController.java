@@ -1,6 +1,7 @@
 package com.youtube.java.puzzle.controller;
 
 import com.youtube.java.puzzle.dto.EmployeeDTO;
+import com.youtube.java.puzzle.dto.EmployeeDetailsDTO;
 import com.youtube.java.puzzle.model.Employee;
 import com.youtube.java.puzzle.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,10 @@ public class EmployeeController {
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id) {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
+    }
+
+    @GetMapping("/employee-details/{id}")
+    public ResponseEntity<EmployeeDetailsDTO> getEmployeeDetailsById(@PathVariable Long id) {
+        return ResponseEntity.ok(employeeService.getEmployeeDetailsById(id));
     }
 }
